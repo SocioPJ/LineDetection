@@ -4,21 +4,21 @@ The goal of this project is detect the horizon line of earth from space, determi
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-Clone this repository to your local machine
+Clone this repository to your local machine and access it
   
   ```
 
-  git clone
+  git clone https://github.com/SocioPJ/LineDetection.git
+  cd LineDetection
 
   ```
+Get in 
 
 ### Prerequisites
 
 Use the package manager *pip* to install required libs using the *requirements.txt*
 
 ```
-Give examples
 ```
 
 ### Installing
