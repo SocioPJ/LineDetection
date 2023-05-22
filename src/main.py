@@ -20,13 +20,14 @@ def analyze_data(file: str):
      
 # Obtem a imagem em Canny Edge e salva imagens na pasta    
 def get_edges(image):
-     median = cv2.medianBlur(image,5) # Aplica desfoque na imagem
+     image = cv2.convertScaleAbs(image,20,1)
+     median = cv2.medianBlur(image,35) # Aplica desfoque na imagem
      gray = cv2.cvtColor(median,cv2.COLOR_BGR2GRAY) # Convert image to grayscale
      edges = cv2.Canny(gray,50,150,apertureSize=3)  # Use canny edge detection
 
-     cv2.imwrite('./results-space-images/fourth-image/DetectedLines.png',image) # Salva imagem original
-     cv2.imwrite('./results-space-images/fourth-image/DetectedEdges.png',edges) # Salva versão canny edge da imagem
-     cv2.imwrite('./results-space-images/fourth-image/DetectedMedianFilter.png',median) # Salva versão borrada da imagem
+     cv2.imwrite('./stellarium/01/DetectedLines.png',image) # Salva imagem original
+     cv2.imwrite('./stellarium/01/DetectedEdges.png',edges) # Salva versão canny edge da imagem
+     cv2.imwrite('./stellarium/01/DetectedMedianFilter.png',median) # Salva versão borrada da imagem
      return edges
 
 
@@ -37,9 +38,9 @@ def hough_transformation(edges):
                edges, # Input imagem edge
                1, # Resolução da distancia em pixels
                pi/180, # Angulo da resolução em radianos
-               threshold=70, # Numero minimo de votos para criar linha válida
-               minLineLength=65, # Tamanho minimo permitido da linha
-               maxLineGap=500 # Gap maximo permitido entre linhas para elas se juntarem
+               threshold=50, # Numero minimo de votos para criar linha válida
+               minLineLength=20, # Tamanho minimo permitido da linha 
+               maxLineGap=5 # Gap maximo permitido entre linhas para elas se juntarem
                )
      return lines
 
@@ -117,7 +118,7 @@ def median_values(function_array):
           x_initial = result_x_minus_min
           x_final = result_x_minus_max
      elif (result_y_max_x <= 0 and result_y_max_x >=-590 and result_x_plus_max >= 0 and result_x_plus_max <=1050):
-          # print('A curva intersecta em x = 1050 e y = -590(4)')
+          # print('A curva intersecta em x = 10intel xeon prata50 e y = -590(4)')
           x_initial = result_x_plus_max
           x_final = 1050
      elif (result_y_min_x <= 0 and result_y_min_x >=-590 and result_x_minus_max >= 0 and result_x_minus_max <=1050):
@@ -180,7 +181,7 @@ def plot_graph():
      
 # ===================== Programa Principal ===================== #
 
-src = './space-images/sun-rising.jpg'
+src = './stellarium/01.png'
 file = analyze_data(src)
 image = cv2.imread(file,cv2.IMREAD_UNCHANGED)
 
